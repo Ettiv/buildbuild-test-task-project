@@ -1,5 +1,5 @@
 import {BrowserRouter, Route} from "react-router-dom";
-import ReposesList from "./components/reposesList";
+import ReposesList from "./components/reposesList/reposesList";
 import './app.css';
 
 function App() {
