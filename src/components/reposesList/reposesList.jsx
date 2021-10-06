@@ -1,10 +1,11 @@
 import {useEffect, useState} from "react";
 import {getReposes} from "../../actions/reposActions";
 import {useDispatch, useSelector} from "react-redux";
-import Repos from '../repos/repos.jsx';
+import ReposOnList from '../reposOnList/reposOnList.jsx';
 import SearchPanel from "../searchPanel/searchPanel";
 import NavigationPanel from '../navigationPanel/navigationPanel';
 import {setCurrentPage} from "../../reducers/reposReducer";
+
 
 function ReposesList() {
 
@@ -33,7 +34,7 @@ function ReposesList() {
                 onSearch={onSearch}
             />
             <div>
-                {reposes.map(repos => <Repos key={repos.id} repos={repos}/>)}
+                {reposes.map(repos => <ReposOnList key={repos.id} repos={repos}/>)}
             </div>
             <NavigationPanel/>
         </>

@@ -1,23 +1,25 @@
-import React from "react";
-import './repos.css';
+import React, {useEffect, useState} from 'react';
+import {useParams} from 'react-router-dom';
+import {getRepose} from "../../actions/reposActions";
 
-const Repos = (props) => {
-    const repos = props.repos;
+const Repos = () => {
+
+    const[repos, setRepos] = useState({});
+    const {username, reposname} = useParams();
+
+    useEffect(()=>{
+        getRepose(username,reposname,setRepos);
+    }, []);
 
     return(
         <div className='repos'>
-            <div className="repos-header>">
-                <div className="repos-header-name">
-                    {repos.name}
-                </div>
-                <div className="repos-header-stars">
-                    {repos.stargazers_count}
-                </div>
+            <img src={repos.owner.avatar_url} alt='Avatar'/>
+            <div className='repos-name'>
+                {repos.name}
             </div>
-            <div className='repos-last-commit'>
-                {repos.updated_at}
+            <div className='repos-stars'>
+                {repos.stargazers_count}
             </div>
-            <a href={repos.html_url} className='repos-link'>Ссылка на репозиторий: {repos.html_url}</a>
         </div>
     )
 }

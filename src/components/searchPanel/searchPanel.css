@@ -9,7 +9,7 @@
 .searchInput{
     flex: 1 1 auto;
     margin-left:4px;
-    border-bottom: 1px solid gray;
+    border: 1px solid gray;
     height: 100%;
     font-size: 1.3em;
     background:none;
@@ -18,7 +18,7 @@
 .buttonsContainerForSearchBar{
     margin: 0 4px 0 0;
     display: flex;
-    border-bottom: 1px solid gray;
+    border: 1px solid gray;
 }
 
 
