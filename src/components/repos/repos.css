@@ -1,0 +1,32 @@
+.repos-language{
+    display: flex;
+    align-items: center;
+}
+
+.repos-language-color{
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.repos-language-text{
+    padding-left: 2px;
+    color: black;
+}
+
+.repos-close-button-container{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.repos-close-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    width: 20px;
+    background-color: red;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}

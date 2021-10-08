@@ -1,30 +1,19 @@
-import {useEffect, useState} from "react";
-import {getReposes} from "../../actions/reposActions";
-import {useDispatch, useSelector} from "react-redux";
-import ReposOnList from '../reposOnList/reposOnList.jsx';
+import {useState} from "react";
 import SearchPanel from "../searchPanel/searchPanel";
-import NavigationPanel from '../navigationPanel/navigationPanel';
-import {setCurrentPage} from "../../reducers/reposReducer";
-
+import Reposes from "../reposes/reposes";
 
 function ReposesList() {
 
-    const dispatch = useDispatch();
-    const reposes = useSelector(state => state.reposes.items);
     const [searchValue, setSearchValue] = useState('');
-    const currentPage = useSelector(state => state.reposes.currentPage);
-    const perPage = useSelector(state => state.reposes.perPage);
-
-
-    useEffect(() => {
-        dispatch(getReposes(searchValue, currentPage, perPage));
-    },[currentPage])
 
     const onSearch = (event) => {
         event.preventDefault();
-        dispatch(setCurrentPage(1));
-        dispatch(getReposes(searchValue,currentPage, perPage));
     }
+
+    const message =
+        <div>
+            Введите поискаовый запрос...
+        </div>
 
     return (
         <>
@@ -33,10 +22,7 @@ function ReposesList() {
                 onChangeValue={(event) => setSearchValue(event.target.value)}
                 onSearch={onSearch}
             />
-            <div>
-                {reposes.map(repos => <ReposOnList key={repos.id} repos={repos}/>)}
-            </div>
-            <NavigationPanel/>
+            {searchValue === '' ? message : <Reposes searhValue={searchValue}/> }
         </>
     );
 }

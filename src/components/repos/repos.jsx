@@ -1,24 +1,55 @@
-import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import {getRepose} from "../../actions/reposActions";
+import {useQuery} from "@apollo/client";
+import {GET_REPOSE} from "../../services/getRepose"
+import './repos.css'
 
-const Repos = () => {
+const Repos = (props) => {
 
-    const[repos, setRepos] = useState({});
     const {username, reposname} = useParams();
+    const {loading,data} = useQuery( GET_REPOSE , {
+        variables: {
+            name: reposname,
+            owner: username
+        }
+    });
 
-    useEffect(()=>{
-        getRepose(username,reposname,setRepos);
-    }, []);
+    if(loading){
+        return null;
+    }
+
+    let languages = (data.repository.languages.nodes || []);
+
+    console.log(data);
 
     return(
         <div className='repos'>
-            <img src={repos.owner.avatar_url} alt='Avatar'/>
-            <div className='repos-name'>
-                {repos.name}
+            <div className='repos-close-button-container'>
+                <div className='repos-close-button' onClick={() => {
+                    props.history.goBack();
+                }}>
+                    X
+                </div>
             </div>
-            <div className='repos-stars'>
-                {repos.stargazers_count}
+            <div className='repos-pull-requests-count'>
+                Колличество пул-реквестов: {data.repository.pullRequests.totalCount}
+            </div>
+            <div className='repos-issues-count'>
+                Колличество ишью: {data.repository.issues.totalCount}
+            </div>
+            <div className='repos-list-of-languages'>
+                {languages.map( language =>{
+                    return(
+                        <div className='repos-language' key={data.repository.id}>
+                            <div
+                                className='repos-language-color'
+                                style={{backgroundColor: language.color}}
+                            />
+                            <div className='repos-language-text'>
+                                {language.name}
+                            </div>
+                        </div>
+                    );
+                })}
             </div>
         </div>
     )
